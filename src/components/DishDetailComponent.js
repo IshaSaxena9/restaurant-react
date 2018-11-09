@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 class DishDetail extends React.Component {
 
@@ -20,6 +21,27 @@ class DishDetail extends React.Component {
       );
   }
 
+  renderComments(comments) {
+    if (comments != null)
+      return (
+        <div>
+          <h4>Comments</h4>
+          <ListGroup className='list-unstyled'>
+            {comments.map((comment) =>
+              <ListGroupItem>
+                <div>{comment.comment}</div>
+                <div>-- {comment.author}, {comment.date.toString()}</div>
+              </ListGroupItem>
+            )}
+          </ListGroup>
+        </div>
+      );
+      else
+        return (
+          <div></div>
+        )
+  }
+
   render() {
     return (
       <div className='row'>
@@ -27,6 +49,7 @@ class DishDetail extends React.Component {
           {this.renderDish(this.props.Dish)}
         </div>
         <div className="col-12 col-md-5 m-1">
+          {this.renderComments(this.props.Dish ? this.props.Dish.comments : null)}
         </div>
       </div>
     )
