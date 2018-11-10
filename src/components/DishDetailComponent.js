@@ -5,13 +5,15 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 function RenderDish({ dish }) {
   if (dish != null)
     return (
-      <Card>
-        <CardImg top src={dish.image} alt={dish.name} />
-        <CardBody>
-          <CardTitle>{dish.name}</CardTitle>
-          <CardText>{dish.description}</CardText>
-        </CardBody>
-      </Card>
+      <div className="col-12 col-md-5 m-1">
+        <Card>
+          <CardImg top src={dish.image} alt={dish.name} />
+          <CardBody>
+            <CardTitle>{dish.name}</CardTitle>
+            <CardText>{dish.description}</CardText>
+          </CardBody>
+        </Card>
+      </div>
     );
   else
     return (
@@ -22,7 +24,7 @@ function RenderDish({ dish }) {
 function RenderComments({ comments }) {
   if (comments != null)
     return (
-      <div>
+      <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
         <ListGroup className='list-unstyled'>
           {comments.map((comment) =>
@@ -43,16 +45,17 @@ function RenderComments({ comments }) {
 }
 
 const DishDetail = (props) => {
-  return (
-    <div className='row'>
-      <div className="col-12 col-md-5 m-1">
-        {RenderDish(props.dish)}
+  if (props.dish != null)
+    return (
+      <div className='container'>
+        <div className='row'>
+          <RenderDish dish={props.dish} />
+          <RenderComments comments={props.dish ? props.dish.comments : null} />
+        </div>
       </div>
-      <div className="col-12 col-md-5 m-1">
-        {RenderComments(props.dish ? props.dish.comments : null)}
-      </div>
-    </div>
-  )
+    )
+  else
+    return (<div></div>)
 }
 
 export default DishDetail;
