@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 function RenderDish({ dish }) {
@@ -37,12 +37,21 @@ function RenderComments({ comments }) {
             </ListGroupItem>
           )}
         </ListGroup>
+        <CommentForm />
       </div>
     );
   else
     return (
       <div></div>
     )
+}
+
+class CommentForm extends React.Component {
+  render() {
+    return (
+      <Button>Submit Comment</Button>
+    )
+  }
 }
 
 const DishDetail = (props) => {
@@ -61,12 +70,8 @@ const DishDetail = (props) => {
           </div>
         </div>
         <div className='row'>
-          <div className='col-12 col-md-5 m-1'>
-            <RenderDish dish={props.dish} />
-          </div>
-          <div className='col-12 col-md-5 m-1'>
-            <RenderComments comments={props.dish ? props.dish.comments : null} />
-          </div>
+          <RenderDish dish={props.dish} />
+          <RenderComments comments={props.comments} />
         </div>
       </div >
     );
