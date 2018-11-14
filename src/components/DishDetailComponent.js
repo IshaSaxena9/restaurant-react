@@ -82,7 +82,7 @@ class CommentForm extends React.Component {
           <ModalBody>
             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
               <Row className="form-group">
-              <Label htmlFor="rating" md={3}>Rating</Label>
+                <Label htmlFor="rating" md={3}>Rating</Label>
                 <Col md={12}>
                   <Control.select model=".rating" name="rating"
                     className="form-control">
