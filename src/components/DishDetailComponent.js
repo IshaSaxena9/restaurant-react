@@ -69,7 +69,7 @@ class CommentForm extends React.Component {
 
   handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
   }
 
   render() {
@@ -159,7 +159,7 @@ const DishDetail = (props) => {
           <RenderDish dish={props.dish} />
           <RenderComments comments={props.comments}
            addComment={props.addComment}
-           dishId={props.dishId}
+           dishId={props.dish.id}
           />
         </div>
       </div >
