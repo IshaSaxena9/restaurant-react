@@ -8,4 +8,4 @@ export const Loading = () => {
       </span>
     </div>
   )
-}
+};
