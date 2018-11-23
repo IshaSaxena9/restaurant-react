@@ -2,12 +2,13 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderLeader({ leader }) {
     return (
         <Media className='grid-container'>
             <div>
-                <img src={leader.image} alt="not found" />
+                <img src={baseUrl + leader.image} alt="not found" />
             </div>
             <div className='leader-details'>
                 <h4>{leader.name}</h4>
