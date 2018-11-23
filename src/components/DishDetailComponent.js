@@ -3,11 +3,12 @@ import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbIte
 import { ListGroup, ListGroupItem, Button, Modal, ModalHeader, ModalBody, Label, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
 function RenderDish(props) {
-  if(props.isLoading) {
+  if (props.isLoading) {
     return (
       <div className='container'>
         <div className='row'>
@@ -16,7 +17,7 @@ function RenderDish(props) {
       </div>
     )
   }
-  else if(props.errmsg) {
+  else if (props.errmsg) {
     return (
       <div className='container'>
         <div className='row'>
@@ -28,13 +29,17 @@ function RenderDish(props) {
   else if (props.dish != null)
     return (
       <div className="col-12 col-md-5 m-1">
-        <Card>
-          <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
-          <CardBody>
-            <CardTitle>{props.dish.name}</CardTitle>
-            <CardText>{props.dish.description}</CardText>
-          </CardBody>
-        </Card>
+        <FadeTransform in transformProps={{
+          exitTransform: 'scale(0.5) translateY(-50%)'
+        }} >
+          <Card>
+            <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
+            <CardBody>
+              <CardTitle>{props.dish.name}</CardTitle>
+              <CardText>{props.dish.description}</CardText>
+            </CardBody>
+          </Card>
+        </FadeTransform>
       </div>
     );
   else
@@ -49,14 +54,19 @@ function RenderComments({ comments, postComment, dishId }) {
       <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
         <ListGroup className='list-unstyled'>
-          {comments.map((comment) =>
-            <ListGroupItem>
-              <div>{comment.comment}</div>
-              <div>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' })
-                .format(new Date(Date.parse(comment.date)))}
-              </div>
-            </ListGroupItem>
-          )}
+          <Stagger in>
+            {comments.map((comment) => {
+              return (
+                <Fade in>
+                  <ListGroupItem>
+                    <div>{comment.comment}</div>
+                    <div>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' })
+                      .format(new Date(Date.parse(comment.date)))}
+                    </div>
+                  </ListGroupItem>
+                </Fade>);
+            })}
+          </Stagger>
         </ListGroup>
         <br></br>
         <CommentForm dishId={dishId} postComment={postComment} />
@@ -178,8 +188,8 @@ const DishDetail = (props) => {
         <div className='row'>
           <RenderDish {...props} dish={props.dish} />
           <RenderComments comments={props.comments}
-           postComment={props.postComment}
-           dishId={props.dish.id}
+            postComment={props.postComment}
+            dishId={props.dish.id}
           />
         </div>
       </div >
