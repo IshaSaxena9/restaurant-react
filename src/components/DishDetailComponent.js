@@ -4,6 +4,7 @@ import { ListGroup, ListGroupItem, Button, Modal, ModalHeader, ModalBody, Label,
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderDish(props) {
   if(props.isLoading) {
@@ -28,7 +29,7 @@ function RenderDish(props) {
     return (
       <div className="col-12 col-md-5 m-1">
         <Card>
-          <CardImg top src={props.dish.image} alt={props.dish.name} />
+          <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
           <CardBody>
             <CardTitle>{props.dish.name}</CardTitle>
             <CardText>{props.dish.description}</CardText>
