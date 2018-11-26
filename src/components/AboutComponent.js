@@ -1,6 +1,7 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Stagger, Fade } from 'react-animation-components';
 import '../App.css';
 import { baseUrl } from '../shared/baseUrl';
 
@@ -22,11 +23,17 @@ function RenderLeader({ leader }) {
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <RenderLeader leader={leader} />
-        );
-    });
+    const leaders = <Stagger in>
+        {
+            props.leaders.map((leader) => {
+                return (
+                    <Fade in>
+                        <RenderLeader leader={leader} />
+                    </Fade>
+                );
+            })
+        }
+    </Stagger>
 
     return (
         <div className="container">
